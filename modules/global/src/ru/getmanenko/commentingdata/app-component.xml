@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<app-component xmlns="http://schemas.haulmont.com/cuba/app-component.xsd"
+               dependsOn="com.haulmont.cuba">
+
+    <module name="global" blocks="*">
+        <artifact name="commentingdata-global" appJar="true"/>
+
+        <property name="cuba.persistenceConfig" value="+ru/getmanenko/commentingdata/persistence.xml"/>
+        <property name="cuba.metadataConfig" value="+ru/getmanenko/commentingdata/metadata.xml"/>
+        <property name="cuba.viewsConfig" value="+ru/getmanenko/commentingdata/views.xml"/>
+    </module>
+    <module name="core" dependsOn="global" blocks="core">
+        <artifact name="commentingdata-core" appJar="true"/>
+        <artifact name="commentingdata-core" classifier="db" ext="zip" configuration="dbscripts"/>
+
+        <property name="cuba.springContextConfig" value="+ru/getmanenko/commentingdata/spring.xml"/>
+        <property name="cuba.mainMessagePack" value="+ru.getmanenko.commentingdata.core"/>
+    </module>
+    <module name="web" dependsOn="global" blocks="web">
+        <artifact name="commentingdata-web" appJar="true"/>
+        <artifact name="commentingdata-web" classifier="web" ext="zip" configuration="webcontent"/>
+
+        <property name="cuba.springContextConfig" value="+ru/getmanenko/commentingdata/web-spring.xml"/>
+        <property name="cuba.dispatcherSpringContextConfig"
+                  value="+ru/getmanenko/commentingdata/web-dispatcher-spring.xml"/>
+        <property name="cuba.windowConfig" value="+ru/getmanenko/commentingdata/web-screens.xml"/>
+        <property name="cuba.menuConfig" value="+ru/getmanenko/commentingdata/web-menu.xml"/>
+        <property name="cuba.permissionConfig" value="+ru/getmanenko/commentingdata/web-permissions.xml"/>
+        <property name="cuba.mainMessagePack" value="+ru.getmanenko.commentingdata.web"/>
+    </module>
+</app-component>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<fragment xmlns="http://schemas.haulmont.com/cuba/screen/fragment.xsd">
+    <data>
+        <collection id="commentsDc" class="ru.getmanenko.commentingdata.entity.Comment" view="comment-view">
+            <loader id="commentsDl">
+                <query>
+                    <![CDATA[select e from commentingdata_Comment e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <layout>
+        <treeTable multiLineCells="true" id="commentsTable" height="100%" width="100%" dataContainer="commentsDc" multiselect="true" hierarchyProperty="inResponseTo">
+            <actions>
+                <action id="create" type="create" shortcut="CTRL-SHIFT-N"/>
+                <action id="reply" type="create" caption="mainMsg://replyBtn" shortcut="CTRL-SHIFT-R"/>
+            </actions>
+            <buttonsPanel alwaysVisible="true">
+                <button id="commentsTable1CreateBtn" action="commentsTable.create"/>
+                <button id="replyBtn" caption="mainMsg://replyBtn" action="commentsTable.reply" icon="MAIL_REPLY"/>
+                <button id="commentsTable1RemoveBtn" caption="mainMsg://deleteComment" invoke="deleteComment"
+                        icon="REMOVE"/>
+                <button id="returnCommenting" caption="mainMsg://returnComment" invoke="returnComment" icon="REFRESH"/>
+            </buttonsPanel>
+            <columns>
+                <column id="inResponseTo"/>
+                <column id="topic"/>
+                <column id="message"/>
+                <column id="user" caption="mainMsg://createdBy"/>
+                <column id="fileDesc" link="true" linkInvoke="save"/>
+            </columns>
+        </treeTable>
+    </layout>
+</fragment>

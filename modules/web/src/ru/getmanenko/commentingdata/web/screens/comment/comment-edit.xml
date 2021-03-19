@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://commentEdit.caption"
+        focusComponent="form"
+        messagesPack="ru.getmanenko.commentingdata.web.screens.comment">
+    <data>
+        <instance id="commentDc"
+                  class="ru.getmanenko.commentingdata.entity.Comment">
+            <view extends="_local" systemProperties="true">
+                <property name="inResponseTo" view="_minimal"/>
+                <property name="fileDesc" view="_minimal">
+                    <property name="size"/>
+                </property>
+            </view>
+            <loader/>
+        </instance>
+    </data>
+    <dialogMode height="AUTO"
+                width="AUTO" forceDialog="true" closeOnClickOutside="true"/>
+    <layout expand="hbox" spacing="true">
+        <hbox id="hbox" width="100%" spacing="true">
+            <scrollBox id="scrollBox" spacing="true">
+                <form id="form" dataContainer="commentDc">
+                    <column width="350px">
+                        <pickerField id="inResponseToField" property="inResponseTo" editable="false">
+                            <actions>
+                                <action id="lookup" type="picker_lookup"/>
+                                <action id="clear" type="picker_clear"/>
+                            </actions>
+                        </pickerField>
+                        <maskedField id="relatedEntityIDField" mask="hhhhhhhh-hhhh-hhhh-hhhh-hhhhhhhhhhhh"
+                                     property="relatedEntityID" visible="false"/>
+                        <textField id="topicField" property="topic"/>
+                        <textArea caption="mainMsg://messageEditor" id="messageField" property="message"/>
+                        <upload id="fileDescField" fileStoragePutMode="IMMEDIATE" property="fileDesc" showFileName="true"/>
+                    </column>
+                </form>
+            </scrollBox>
+        </hbox>
+        <hbox id="editActions" spacing="true">
+            <button id="commitAndCloseBtn" action="windowCommitAndClose"/>
+            <button id="closeBtn" action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

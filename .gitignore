@@ -1,0 +1,13 @@
+.gradle
+.studio
+*.ipr
+*.iml
+*.iws
+build/*
+deploy/*
+modules/*/build/*
+.idea/*
+out
+test-run
+/modules/core/db/update/postgres/
+/studio-intellij.xml

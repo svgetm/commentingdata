@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
+        caption="msg://commentBrowse.caption"
+        focusComponent="commentsTable"
+        messagesPack="ru.getmanenko.commentingdata.web.screens.comment">
+    <data readOnly="true">
+        <collection id="commentsDc"
+                    class="ru.getmanenko.commentingdata.entity.Comment">
+            <view extends="_local" systemProperties="true">
+                <property name="inResponseTo" view="_minimal"/>
+                <property name="fileDesc" view="_minimal">
+                    <property name="size"/>
+                </property>
+                <property name="user" view="_minimal">
+                    <property name="firstName"/>
+                    <property name="lastName"/>
+                    <property name="middleName"/>
+                    <property name="email"/>
+                </property>
+            </view>
+            <loader id="commentsDl">
+                <query>
+                    <![CDATA[select e from commentingdata_Comment e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="commentsTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="commentsTable"
+                dataLoader="commentsDl">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="commentsTable"
+                    width="100%"
+                    dataContainer="commentsDc"
+                    multiselect="true">
+            <actions>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="createTs"/>
+                <column id="inResponseTo"/>
+                <column id="relatedEntityID" link="true" linkInvoke="openScreenEntity"/>
+                <column id="user" caption="mainMsg://crateComment"/>
+                <column id="topic"/>
+                <column id="message"/>
+                <column id="fileDesc" link="true" linkInvoke="saveFile"/>
+            </columns>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="removeBtn" action="commentsTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>
